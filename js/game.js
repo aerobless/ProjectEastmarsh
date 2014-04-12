@@ -1,14 +1,19 @@
-var height = $(window).height();
-var width = $(window).width();
+//Game settings
+var fixedWidth = 1000;
+var fixedHeight = 700;
 
 //Actual render size
-var game = new Phaser.Game(1000, 700, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(fixedWidth, fixedHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 //Load assets, setup window
 function preload() {
-    //Scaling to window size (as long as it can stil draw everyhting)
-    game.scale.maxWidth = height;
-    game.scale.maxHeight = width;
+    //Getting actual window info from jQuery
+    var actualHeight = $(window).height();
+    var actualWidth = $(window).width();
+
+    //Scaling to window size (as long as it can still draw everything)
+    game.scale.maxWidth = actualHeight;
+    game.scale.maxHeight = actualWidth;
 
     //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -35,9 +40,10 @@ function create() {
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
     platforms.enableBody = true;
-    var ground = platforms.create(0, game.world.height - 64, 'ground');
 
-    ground.scale.setTo(2, 2);
+    //Floor
+    var ground = platforms.create(0, game.world.height - 30, 'ground');
+    ground.scale.setTo(10, 1);
     ground.body.immovable = true;
 
     var ledge = platforms.create(200, 500, 'ground');
