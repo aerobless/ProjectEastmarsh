@@ -48,7 +48,10 @@ function create() {
 
     var ledge = platforms.create(200, 500, 'ground');
     ledge.body.immovable = true;
-    ledge = platforms.create(-150, 250, 'ground');
+    ledge = platforms.create(-150, 350, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(550, 350, 'ground');
     ledge.body.immovable = true;
 
     // The player and its settings
